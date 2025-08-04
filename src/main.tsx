@@ -11,6 +11,7 @@ import {
 import { WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"; 
 import "./index.css";
+
 const pulseTestnet = {
   id: 943,
   name: "PulseChain Testnet v4",
@@ -31,7 +32,7 @@ const pulseTestnet = {
 
 const config = getDefaultConfig({
   appName: "PulseInvest Dashboard",
-  projectId: "pulse-dashboard", // dowolny unikalny string
+  projectId: "pulse-dashboard",
   chains: [pulseTestnet],
   ssr: false,
 });
@@ -42,7 +43,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider chains={config.chains}>
+        <RainbowKitProvider>
           <App />
         </RainbowKitProvider>
       </QueryClientProvider>
