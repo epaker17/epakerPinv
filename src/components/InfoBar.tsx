@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 const COINGECKO_IDS = [
   { id: "bitcoin", symbol: "BTC" },

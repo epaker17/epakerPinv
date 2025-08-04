@@ -1,5 +1,4 @@
 // src/components/PinvCharts.tsx
-import React from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 // Przykładowe dane. Zamień na własne źródło!

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import BurnedStats from "../components/BurnedStats";
 
 const SUPPORTED_CHAIN_ID = 943;
-const PINV_ADDRESS = "0x9cD66EB8b7280B5fcd0DF5bF3058ba5919Aa46a3";
+const PINV_ADDRESS = "0x49a43585aCc15bDb503EC2833a426CCa154bE8e8";
 
 const buttonStyle: React.CSSProperties = {
   background: "#229ED9",
