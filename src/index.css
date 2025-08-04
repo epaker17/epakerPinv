@@ -77,3 +77,30 @@ button:focus-visible {
     color: #FFD700;
   }
 }
+
+/* --- Social buttons: desktop i mobile --- */
+.social-buttons {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+/* MOBILE: pionowo, większe przyciski */
+@media (max-width: 600px) {
+  .social-buttons {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+    margin-top: 20px;
+  }
+
+  .social-buttons button,
+  .social-buttons a > button {
+    width: 100%;
+    font-size: 17px;
+    padding: 12px 0;
+    min-width: unset;
+    box-sizing: border-box;
+  }
+}

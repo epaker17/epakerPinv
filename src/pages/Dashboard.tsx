@@ -49,13 +49,12 @@ export default function Dashboard() {
   });
 
   // PINV symbol
-
   const { data: pinvSymbol } = useReadContract({
-  address: PINV_ADDRESS,
-  abi: PINV_ABI,
-  functionName: "symbol",
-  chainId: SUPPORTED_CHAIN_ID,
-});
+    address: PINV_ADDRESS,
+    abi: PINV_ABI,
+    functionName: "symbol",
+    chainId: SUPPORTED_CHAIN_ID,
+  });
 
   // PINV balance (dla użytkownika)
   const { data: pinvRaw, isLoading: pinvLoading } = useReadContract({
@@ -139,14 +138,7 @@ export default function Dashboard() {
       <PinvCharts />
 
       {/* Social + Whitepaper Buttons */}
-      <div
-        style={{
-          display: "flex",
-          gap: 18,
-          justifyContent: "center",
-          marginTop: 32,
-        }}
-      >
+      <div className="social-buttons">
         <button
           onClick={() => window.open("https://x.com/PinvToken", "_blank")}
           style={buttonStyle}
