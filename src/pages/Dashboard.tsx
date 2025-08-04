@@ -49,12 +49,13 @@ export default function Dashboard() {
   });
 
   // PINV symbol
-  const { data: pinvSymbol, isLoading: pinvSymbolLoading } = useReadContract({
-    address: PINV_ADDRESS,
-    abi: PINV_ABI,
-    functionName: "symbol",
-    chainId: SUPPORTED_CHAIN_ID,
-  });
+
+  const { data: pinvSymbol } = useReadContract({
+  address: PINV_ADDRESS,
+  abi: PINV_ABI,
+  functionName: "symbol",
+  chainId: SUPPORTED_CHAIN_ID,
+});
 
   // PINV balance (dla użytkownika)
   const { data: pinvRaw, isLoading: pinvLoading } = useReadContract({
