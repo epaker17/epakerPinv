@@ -1,69 +1,43 @@
-# React + TypeScript + Vite
+# PulseInvest Dashboard & Token
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+PulseInvest is a modern, community-driven ERC20 token and dashboard built for the PulseChain ecosystem. The project includes an on-chain token (PINV) with a transparent fee and anti-bot mechanism, as well as an open, easy-to-use React dashboard for the community.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚦 Test Coverage
 
-## Expanding the ESLint configuration
+All smart contract logic (including anti-bot, burn, treasury fee, and all edge cases) is fully covered by automated unit and integration tests.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+👉 [**View Full Coverage Report**](https://epaker17.github.io/epakerPinv/)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **ERC20 token with deflationary fee** (2% burn, 2% treasury)
+- **Anti-bot protection** (99% fee in first 10 blocks after trading opens)
+- **No mint function** after deployment
+- **Open-source dashboard**: Wallet connect, real-time balances, stats, charts
+- Mobile-friendly and lightweight UI
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Technology Stack
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Smart contract:** Solidity, OpenZeppelin
+- **Frontend:** React, TypeScript, Vite, RainbowKit, Wagmi
+- **Testing:** Hardhat, Chai, solidity-coverage
+
+---
+
+## For Developers
+
+This template provides a minimal setup for a modern dApp on PulseChain.  
+See [Vite Docs](https://vitejs.dev/) and [RainbowKit Docs](https://www.rainbowkit.com/docs/introduction) for more.
+
+---
+
+## License
+
+MIT
+
