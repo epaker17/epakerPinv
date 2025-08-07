@@ -1,0 +1,16 @@
+await pulseInvest.openTrading();
+await pulseInvest.transfer("0xc6820d148473e008337E6ff2244f3FaF67B75C9b", ethers.parseUnits("10", 18));
+const pulseInvest = await ethers.getContractAt("PulseInvest", "0x49a43585aCc15bDb503EC2833a426CCa154bE8e8");
+const [mySigner] = await ethers.getSigners();
+await pulseInvest.transfer("0xc6820d148473e008337E6ff2244f3FaF67B75C9b", ethers.parseUnits("10", 18));
+const est", "0x49a43585aCc15bDb503EC2833a426CCa154bE8e8");
+const [signer] = await ethers.getSigners();
+npx hardhat console --network pulseTestnet
+await pulseInvest.transfer("ADRES_ODBIORCY", ethers.parseUnits("10", 18));
+const // Przykład: transfer 10 PINV do jakiegoś adresu
+const [signer] = await ethers.getSigners();
+const attackerWallet = ethers.Wallet.createRandom();
+npx hardhat console
+console.log("Private Key:", attackerWallet.privateKey);
+const attacconsole.log("Address:", attackerWallet.address);
+const { ethers } = require("hardhat");

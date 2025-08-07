@@ -1,0 +1,16 @@
+{
+  "solc-remaps": [
+    "@openzeppelin/=node_modules/@openzeppelin/contracts/"
+  ],
+
+  "exclude-detectors": [
+    "different-pragma-directives-are-used",
+    "incorrect-versions-of-solidity",
+    "state-variables-that-could-be-declared-immutable"
+  ],
+
+  "exclude-paths": [],
+
+  "skip-clean": true,
+  "skip-compile": true
+}
