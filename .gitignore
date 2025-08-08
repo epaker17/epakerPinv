@@ -1,24 +1,17 @@
-# Logs
-logs
+# global
+node_modules/
+artifacts/
+cache/
+coverage/
+coverage.json
+dist/
+build/
+.env
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+
+# frontend – tylko w dashboardzie
+pulse-dashboard/node_modules/
+pulse-dashboard/dist/
+pulse-dashboard/build/
+pulse-dashboard/.env
