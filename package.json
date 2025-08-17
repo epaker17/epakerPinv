@@ -1,20 +1,21 @@
-{
-  "name": "epakerpinv",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "prebuild": "node scripts/fetch-abi.mjs",
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "ethers": "^6.15.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.2.0",
-    "vite": "^5.4.0"
-  }
+﻿{
+    "name":  "epakerpinv",
+    "version":  "0.0.1",
+    "private":  true,
+    "scripts":  {
+                    "prebuild":  "node -r dotenv/config scripts/fetch-abi.mjs",
+                    "dev":  "vite",
+                    "build":  "vite build",
+                    "preview":  "vite preview"
+                },
+    "dependencies":  {
+                         "ethers":  "^6.15.0",
+                         "react":  "^18.3.1",
+                         "react-dom":  "^18.3.1"
+                     },
+    "devDependencies":  {
+                            "@vitejs/plugin-react":  "^4.2.0",
+                            "dotenv":  "^17.2.1",
+                            "vite":  "^5.4.0"
+                        }
 }
