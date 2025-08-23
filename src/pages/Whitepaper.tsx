@@ -1,4 +1,4 @@
-﻿export default function Whitepaper() {
+export default function Whitepaper() {
   return (
     <div
       style={{
