@@ -3,12 +3,25 @@ import { Link, useLocation } from "react-router-dom";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import pinvLogo from "../assets/logo.jpeg";
 
-// Ustal explorer wg sieci z ENV
+// Konfiguracja wg ENV
 const CHAIN_ID = Number(import.meta.env.VITE_CHAIN_ID || 943);
+const CHAIN_LABEL =
+  CHAIN_ID === 369 ? "PulseChain" :
+  CHAIN_ID === 943 ? "PulseChain Testnet v4" :
+  `Chain ${CHAIN_ID}`;
+
 const EXPLORER =
   CHAIN_ID === 369
     ? "https://scan.pulsechain.com"
     : "https://scan.v4.testnet.pulsechain.com";
+
+const PINV_ADDRESS = (import.meta.env.VITE_PINV_ADDRESS || "").trim();
+const CONTRACT_URL = PINV_ADDRESS ? `${EXPLORER}/address/${PINV_ADDRESS}` : null;
+
+function truncate(addr) {
+  if (!addr) return "";
+  return addr.slice(0, 6) + "…" + addr.slice(-4);
+}
 
 export default function InfoBar() {
   const loc = useLocation();
@@ -60,27 +73,13 @@ export default function InfoBar() {
         }}
       >
         {/* LEWO: logo + nazwa */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-            minWidth: 0,
-          }}
-        >
+        <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
           <img
             src={pinvLogo}
             alt="PINV"
             style={{ height: 28, width: 28, borderRadius: 6, objectFit: "cover" }}
           />
-          <span
-            style={{
-              color: "#FFD700",
-              fontWeight: 700,
-              letterSpacing: 0.4,
-              userSelect: "none",
-            }}
-          >
+          <span style={{ color: "#FFD700", fontWeight: 700, letterSpacing: 0.4, userSelect: "none" }}>
             PINV
           </span>
         </div>
@@ -102,7 +101,7 @@ export default function InfoBar() {
           <a
             href={EXPLORER}
             target="_blank"
-            rel="noreferrer"
+            rel="noreferrer noopener"
             style={{
               color: "#FFD700",
               padding: "8px 12px",
@@ -116,8 +115,44 @@ export default function InfoBar() {
           </a>
         </nav>
 
-        {/* PRAWO: Connect */}
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        {/* PRAWO: Sieć + adres kontraktu + Connect */}
+        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
+          <span
+            title={`Current chain: ${CHAIN_LABEL}`}
+            style={{
+              color: "#FFD700",
+              fontSize: 12,
+              border: "1px solid #243056",
+              borderRadius: 999,
+              padding: "4px 10px",
+              background: "#0e1a33",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {CHAIN_LABEL}
+          </span>
+
+          {CONTRACT_URL && (
+            <a
+              href={CONTRACT_URL}
+              target="_blank"
+              rel="noreferrer noopener"
+              title={PINV_ADDRESS}
+              style={{
+                color: "#FFD700",
+                fontSize: 12,
+                border: "1px solid #243056",
+                borderRadius: 10,
+                padding: "6px 10px",
+                background: "transparent",
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Contract: {truncate(PINV_ADDRESS)}
+            </a>
+          )}
+
           <ConnectButton />
         </div>
       </div>
