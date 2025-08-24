@@ -1,0 +1,161 @@
+﻿import { Link, useLocation } from "react-router-dom";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import pinvLogo from "../assets/logo.jpeg";
+
+const CHAIN_ID = Number(import.meta.env.VITE_CHAIN_ID || 943);
+const CHAIN_LABEL =
+  CHAIN_ID === 369 ? "PulseChain" :
+  CHAIN_ID === 943 ? "PulseChain Testnet v4" :
+  `Chain ${CHAIN_ID}`;
+
+const EXPLORER =
+  CHAIN_ID === 369
+    ? "https://scan.pulsechain.com"
+    : "https://scan.v4.testnet.pulsechain.com";
+
+const PINV_ADDRESS = (import.meta.env.VITE_PINV_ADDRESS || "").trim();
+const CONTRACT_URL = PINV_ADDRESS ? `${EXPLORER}/address/${PINV_ADDRESS}` : null;
+
+function truncate(addr) {
+  if (!addr) return "";
+  return addr.slice(0, 6) + "…" + addr.slice(-4);
+}
+
+export default function InfoBar() {
+  const loc = useLocation();
+
+  const item = (to, label) => {
+    const active = loc.pathname === to;
+    return (
+      <Link
+        to={to}
+        style={{
+          color: "#FFD700",
+          textDecoration: "none",
+          padding: "8px 12px",
+          borderRadius: 10,
+          background: active ? "#0e1a33" : "transparent",
+          border: "1px solid #243056",
+          boxShadow: active ? "0 0 0 1px #2b3a66 inset" : "none",
+          transition: "background .15s, box-shadow .15s",
+          whiteSpace: "nowrap",
+        }}
+        aria-current={active ? "page" : undefined}
+      >
+        {label}
+      </Link>
+    );
+  };
+
+  return (
+    <div
+      style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 10,
+        padding: 10,
+        background: "rgba(10,16,35,0.75)",
+        backdropFilter: "blur(6px)",
+        borderBottom: "1px solid #243056",
+      }}
+    >
+      <div
+        className="navbar-inner"
+        style={{
+          maxWidth: 1100,
+          margin: "0 auto",
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+        }}
+      >
+        {/* LEWO: logo + nazwa */}
+        <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
+          <img
+            src={pinvLogo}
+            alt="PINV"
+            style={{ height: 28, width: 28, borderRadius: 6, objectFit: "cover" }}
+          />
+          <span style={{ color: "#FFD700", fontWeight: 700, letterSpacing: 0.4, userSelect: "none" }}>
+            PINV
+          </span>
+        </div>
+
+        {/* ŚRODEK: nawigacja */}
+        <nav
+          className="nav-links"
+          aria-label="Main"
+          style={{
+            display: "flex",
+            gap: 10,
+            justifyContent: "center",
+            flex: 1,
+            minWidth: 0,
+          }}
+        >
+          {item("/", "Dashboard")}
+          {item("/contract", "Contract")}
+          {item("/whitepaper", "Whitepaper")}
+          <a
+            href={EXPLORER}
+            target="_blank"
+            rel="noreferrer noopener"
+            style={{
+              color: "#FFD700",
+              padding: "8px 12px",
+              borderRadius: 10,
+              border: "1px solid #243056",
+              textDecoration: "none",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Explorer
+          </a>
+        </nav>
+
+        {/* PRAWO: Sieć + kontrakt + Connect */}
+        <div className="connect-wrap" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <span
+            title={`Current chain: ${CHAIN_LABEL}`}
+            style={{
+              color: "#FFD700",
+              fontSize: 12,
+              border: "1px solid #243056",
+              borderRadius: 999,
+              padding: "4px 10px",
+              background: "#0e1a33",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {CHAIN_LABEL}
+          </span>
+
+          {CONTRACT_URL && (
+            <a
+              href={CONTRACT_URL}
+              target="_blank"
+              rel="noreferrer noopener"
+              title={PINV_ADDRESS}
+              style={{
+                color: "#FFD700",
+                fontSize: 12,
+                border: "1px solid #243056",
+                borderRadius: 10,
+                padding: "6px 10px",
+                background: "transparent",
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Contract: {truncate(PINV_ADDRESS)}
+            </a>
+          )}
+
+          <ConnectButton />
+        </div>
+      </div>
+    </div>
+  );
+}
