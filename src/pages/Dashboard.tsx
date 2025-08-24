@@ -1,14 +1,11 @@
+﻿// src/pages/Dashboard.tsx
 import { useAccount, useDisconnect, useBalance, useReadContract } from "wagmi";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaTelegramPlane } from "react-icons/fa";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-// Uwaga: Link usunięty, użyjemy <a>, żeby nie wymagać Routera
 import abi from "../abi/pinv-abi.json";
-import BurnedStats from "../components/BurnedStats";
 import AddPulseChainButton from "../components/AddPulseChainButton";
 import PinvCharts from "../components/PinvCharts";
-import TreasuryCard from "../components/TreasuryCard";
-import BurnProgress from "../components/BurnProgress";
 import TokenActions from "../components/TokenActions";
 import BuyButtons from "../components/BuyButtons";
 
@@ -54,7 +51,6 @@ export default function Dashboard() {
     functionName: "decimals",
     chainId: SUPPORTED_CHAIN_ID,
   });
-
   const { data: pinvSymbol } = useReadContract({
     address: PINV_ADDRESS,
     abi: abi as any,
@@ -62,7 +58,7 @@ export default function Dashboard() {
     chainId: SUPPORTED_CHAIN_ID,
   });
 
-  // Balans PINV (tylko gdy mamy address)
+  // Balans PINV (odczyt tylko jeśli mamy address)
   const { data: pinvRaw, isLoading: pinvLoading } = useReadContract({
     address: PINV_ADDRESS,
     abi: abi as any,
@@ -75,7 +71,7 @@ export default function Dashboard() {
   // Konwersja balansu PINV
   let pinvBalance = "0";
   try {
-    if (typeof decimals === "number" && typeof pinvRaw !== "undefined" && pinvRaw !== null) {
+    if (typeof decimals === "number" && pinvRaw != null) {
       const raw =
         typeof pinvRaw === "bigint"
           ? pinvRaw
@@ -85,9 +81,7 @@ export default function Dashboard() {
       const num = Number(raw) / 10 ** Number(decimals);
       pinvBalance = num.toLocaleString("pl-PL", { maximumFractionDigits: 4 });
     }
-  } catch {
-    // ignore formatting errors
-  }
+  } catch {}
 
   return (
     <div style={{ maxWidth: 1100, margin: "0 auto", padding: 12 }}>
@@ -126,12 +120,10 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Akcje tokena (copy / add to wallet / explorer) */}
+      {/* Akcje tokena: Copy / Add to wallet / Explorer (niebieskie) */}
       <TokenActions />
 
-      {/* Treasury + Burn */}
-      <TreasuryCard />
-      <BurnProgress />
+      {/* (USUNIĘTE: <TreasuryCard /> i <BurnProgress />) */}
 
       {/* Wykres HEX/WPLS */}
       <PinvCharts />
@@ -150,17 +142,15 @@ export default function Dashboard() {
           Telegram
         </button>
         <a href="/whitepaper" style={{ textDecoration: "none" }}>
-          <button style={buttonStyle}>📄 Whitepaper</button>
+          <button style={buttonStyle}> Whitepaper</button>
         </a>
         <AddPulseChainButton />
       </div>
 
-      {/* „Kup” / para */}
       <BuyButtons />
 
-      {/* Copyright */}
       <div style={{ color: "#375486", textAlign: "center", marginTop: 16, fontSize: 13, fontWeight: 500 }}>
-        PINV 2025 © All rights reserved.
+        PINV 2025  All rights reserved.
       </div>
     </div>
   );

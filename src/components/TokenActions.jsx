@@ -1,43 +1,82 @@
 ﻿// src/components/TokenActions.jsx
-const ADDR = (import.meta.env.VITE_PINV_ADDRESS || "").trim();
 const CHAIN_ID = Number(import.meta.env.VITE_CHAIN_ID || 943);
-const EXPLORER = CHAIN_ID === 369 ? "https://scan.pulsechain.com" : "https://scan.v4.testnet.pulsechain.com";
+const PINV_ADDRESS = import.meta.env.VITE_PINV_ADDRESS || "0xDddEB1b62F96e041333286D5F14470BDEbeAfBFD";
+const EXPLORER =
+  CHAIN_ID === 369
+    ? "https://scan.pulsechain.com"
+    : "https://scan.v4.testnet.pulsechain.com";
 
-function truncate(a){ return a ? a.slice(0,6)+""+a.slice(-4) : ""; }
+const wrap = {
+  display: "flex",
+  gap: 10,
+  justifyContent: "center",
+  flexWrap: "wrap",
+  margin: "18px 0 10px 0",
+};
 
-export default function TokenActions(){
+const buttonStyle = {
+  background: "#229ED9",
+  color: "#fff",
+  border: "none",
+  borderRadius: 8,
+  padding: "8px 16px",
+  fontWeight: 600,
+  cursor: "pointer",
+  fontSize: 14,
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 8,
+  transition: "0.15s",
+  height: 36,
+  boxShadow: "0 2px 10px #0002",
+  textDecoration: "none",
+};
+
+export default function TokenActions() {
   const copy = async () => {
-    try{ await navigator.clipboard.writeText(ADDR); alert("Skopiowano adres kontraktu"); }catch{}
+    try {
+      await navigator.clipboard.writeText(PINV_ADDRESS);
+      alert("Copied: " + PINV_ADDRESS);
+    } catch (e) {
+      alert("Copy failed: " + (e?.message || e));
+    }
   };
+
   const addToWallet = async () => {
-    const w = window?.ethereum;
-    if(!w) return alert("Zainstaluj MetaMask lub kompatybilny portfel");
-    try{
-      await w.request({
+    const eth = window.ethereum;
+    if (!eth) return alert("Please install MetaMask or a compatible wallet.");
+    try {
+      await eth.request({
         method: "wallet_watchAsset",
         params: {
           type: "ERC20",
-          options: { address: ADDR, symbol: "PINV", decimals: 18 }
-        }
+          options: {
+            address: PINV_ADDRESS,
+            symbol: "PINV",
+            decimals: 18,
+            image: window.location.origin + "/favicon.jpg",
+          },
+        },
       });
-    }catch(e){ alert(e?.message || e); }
+    } catch (e) {
+      alert("Could not add token: " + (e?.message || e));
+    }
   };
 
   return (
-    <div style={{
-      maxWidth:1100, margin:"16px auto", padding:"12px 16px",
-      border:"1px solid #243056", borderRadius:12, background:"rgba(20,33,61,0.35)", color:"#FFD700",
-      display:"flex", gap:10, alignItems:"center", flexWrap:"wrap", justifyContent:"space-between"
-    }}>
-      <div style={{display:"flex",alignItems:"center",gap:8, minWidth:0}}>
-        <span style={{fontWeight:700}}>Contract:</span>
-        <span style={{wordBreak:"break-all"}}>{ADDR || "-"}</span>
+    <div style={{ textAlign: "center" }}>
+      <div style={{ color: "#7fd8ff", fontSize: 13, marginBottom: 6 }}>
+        Contract: {PINV_ADDRESS}
       </div>
-      <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-        <button onClick={copy} style={{border:"1px solid #243056", background:"#0e1a33", color:"#FFD700", borderRadius:8, padding:"8px 12px"}}>Copy</button>
-        <button onClick={addToWallet} style={{border:"1px solid #243056", background:"#0e1a33", color:"#FFD700", borderRadius:8, padding:"8px 12px"}}>Add to wallet</button>
-        <a href={`${EXPLORER}/address/${ADDR}`} target="_blank" rel="noreferrer"
-           style={{border:"1px solid #243056", background:"#0e1a33", color:"#FFD700", borderRadius:8, padding:"8px 12px", textDecoration:"none"}}>
+      <div style={wrap}>
+        <button onClick={copy} style={buttonStyle}>Copy</button>
+        <button onClick={addToWallet} style={buttonStyle}>Add to wallet</button>
+        <a
+          href={`${EXPLORER}/address/${PINV_ADDRESS}`}
+          target="_blank"
+          rel="noreferrer"
+          style={buttonStyle}
+        >
           Explorer
         </a>
       </div>
