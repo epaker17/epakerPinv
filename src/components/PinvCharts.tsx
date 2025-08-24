@@ -1,5 +1,5 @@
 ﻿// src/components/PinvCharts.tsx
-// Embed wykresu HEX/WPLS z DexScreener (PulseChain) + tint dopasowany do tła
+// Embed wykresu HEX/WPLS z DexScreener (PulseChain) + tint + lepszy mobile
 
 const PAIR =
   (import.meta as any).env.VITE_HEX_PAIR ||
@@ -10,6 +10,7 @@ const IFRAME_SRC = `https://dexscreener.com/pulsechain/${PAIR}?embed=1&info=0&th
 export default function PinvCharts() {
   return (
     <div
+      className="chart-card tint-royal"
       style={{
         maxWidth: 1100,
         margin: "24px auto 0",
@@ -18,16 +19,14 @@ export default function PinvCharts() {
         borderRadius: 12,
         background: "rgba(20,33,61,0.35)",
       }}
-      className="tint-royal" // <- możesz zmienić: tint-soft | tint-royal | tint-deep
     >
-      <h3 style={{ marginTop: 0, color: "#61a5fb" }}>Charts</h3>
+      <h3 style={{ marginTop: 0, color: "#61a5fb", textAlign: "center" }}>Charts</h3>
 
       <div
         className="chart-wrap chart-wrap--tint"
         style={{
           position: "relative",
           width: "100%",
-          aspectRatio: "16 / 9",
           borderRadius: 12,
           overflow: "hidden",
           background: "#0b1327",

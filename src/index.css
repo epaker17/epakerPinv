@@ -204,3 +204,21 @@ button:focus-visible {
 .tint-soft   .dex-embed { filter: hue-rotate(200deg) saturate(0.95) brightness(0.96) contrast(1.03); }
 .tint-royal  .dex-embed { filter: hue-rotate(220deg) saturate(1.05) brightness(0.9)  contrast(1.08); }
 .tint-deep   .dex-embed { filter: hue-rotate(210deg) saturate(1.15) brightness(0.85) contrast(1.12); }
+/* === Chart sizing (desktop & mobile) === */
+.chart-wrap { aspect-ratio: 16 / 9; }
+
+@media (max-width: 600px) {
+  .chart-card { padding: 12px; }
+  .chart-wrap {
+    aspect-ratio: auto;     /* wyłącz 16:9 */
+    height: 60vh;           /* ~60% wysokości ekranu */
+    min-height: 360px;      /* nie schodź poniżej */
+  }
+}
+
+@media (max-width: 380px) {
+  .chart-wrap {
+    height: 65vh;
+    min-height: 320px;
+  }
+}
