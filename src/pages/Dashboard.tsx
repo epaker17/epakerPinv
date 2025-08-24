@@ -1,4 +1,4 @@
-import { useAccount, useDisconnect, useBalance, useReadContract } from "wagmi";
+﻿import { useAccount, useDisconnect, useBalance, useReadContract } from "wagmi";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaTelegramPlane } from "react-icons/fa";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
@@ -8,9 +8,12 @@ import BurnedStats from "../components/BurnedStats";
 import AddPulseChainButton from "../components/AddPulseChainButton";
 import PinvCharts from "../components/PinvCharts";
 import TreasuryCard from "../components/TreasuryCard";
+<<<<<<< HEAD
 import BurnProgress from "../components/BurnProgress";
 import TokenActions from "../components/TokenActions";
 import BuyButtons from "../components/BuyButtons";
+=======
+>>>>>>> a14d8041 (feat: add <TreasuryCard /> above charts)
 
 const SUPPORTED_CHAIN_ID = Number(import.meta.env.VITE_CHAIN_ID || 943);
 const PINV_ADDRESS = (import.meta.env.VITE_PINV_ADDRESS || "0xDddEB1b62F96e041333286D5F14470BDEbeAfBFD") as `0x${string}`;
@@ -39,7 +42,7 @@ export default function Dashboard() {
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
 
-  // PLS balance (tylko gdy podłączony)
+  // PLS balance (tylko gdy podÅ‚Ä…czony)
   const { data: plsData, isLoading: plsLoading } = useBalance({
     address,
     chainId: SUPPORTED_CHAIN_ID,
@@ -127,6 +130,8 @@ export default function Dashboard() {
       <BurnedStats />
 
       {/* Wykresy (placeholder) */}
+  <TreasuryCard />
+  
       <PinvCharts />
 
       {/* Social + Whitepaper + Add PulseChain Button */}
@@ -143,7 +148,7 @@ export default function Dashboard() {
           Telegram
         </button>
         <Link to="/whitepaper" style={{ textDecoration: "none" }}>
-          <button style={buttonStyle}>📄 Whitepaper</button>
+          <button style={buttonStyle}>ðŸ“„ Whitepaper</button>
         </Link>
         <AddPulseChainButton />
       </div>
@@ -151,8 +156,9 @@ export default function Dashboard() {
       <div
         style={{ color: "#375486", textAlign: "center", marginTop: 20, fontSize: 13, fontWeight: 500 }}
       >
-        PINV 2025 © All rights reserved.
+        PINV 2025 Â© All rights reserved.
       </div>
     </div>
   );
 }
+
