@@ -1,9 +1,7 @@
-// src/components/InfoBar.jsx
-import { Link, useLocation } from "react-router-dom";
+﻿import { Link, useLocation } from "react-router-dom";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import pinvLogo from "../assets/logo.jpeg";
 
-// Konfiguracja wg ENV
 const CHAIN_ID = Number(import.meta.env.VITE_CHAIN_ID || 943);
 const CHAIN_LABEL =
   CHAIN_ID === 369 ? "PulseChain" :
@@ -62,6 +60,7 @@ export default function InfoBar() {
       }}
     >
       <div
+        className="navbar-inner"
         style={{
           maxWidth: 1100,
           margin: "0 auto",
@@ -86,13 +85,14 @@ export default function InfoBar() {
 
         {/* ŚRODEK: nawigacja */}
         <nav
+          className="nav-links"
           aria-label="Main"
           style={{
             display: "flex",
             gap: 10,
             justifyContent: "center",
             flex: 1,
-            minWidth: 260,
+            minWidth: 0,
           }}
         >
           {item("/", "Dashboard")}
@@ -115,8 +115,8 @@ export default function InfoBar() {
           </a>
         </nav>
 
-        {/* PRAWO: Sieć + adres kontraktu + Connect */}
-        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
+        {/* PRAWO: Sieć + kontrakt + Connect */}
+        <div className="connect-wrap" style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <span
             title={`Current chain: ${CHAIN_LABEL}`}
             style={{

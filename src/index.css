@@ -100,3 +100,30 @@ button:focus-visible {
     box-sizing: border-box;
   }
 }
+/* === Mobile-friendly navbar & buttons === */
+.navbar-inner { gap: 12px; flex-wrap: wrap; }
+
+/* linki w nawigacji mogą się zawijać */
+.nav-links { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+/* obszar z ConnectButton może spaść do nowej linii i centruje przycisk */
+.connect-wrap { display: flex; align-items: center; gap: 8px; }
+
+/* Social buttons: dopieszczenie mobilne */
+.social-buttons { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+@media (max-width: 720px) {
+  .nav-links a { flex: 1 1 calc(50% - 10px); text-align: center; }
+  .connect-wrap { flex-basis: 100%; justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .nav-links a { flex-basis: 100%; }
+  .social-buttons { flex-direction: column; align-items: stretch; }
+  .social-buttons button,
+  .social-buttons a > button {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+}
