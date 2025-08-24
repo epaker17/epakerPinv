@@ -13,13 +13,9 @@ export default function App() {
         background: "linear-gradient(120deg,#14213d 0%,#1a2042 90%)",
       }}
     >
-      {/* Prosty nagłówek z logo (bez infobara) */}
+      {/* Prosty nagłówek z dużym logo */}
       <div style={{ textAlign: "center", paddingTop: 16, paddingBottom: 24 }}>
-        <img
-          src={logo}
-          alt="PINV"
-          style={{ height: 72, borderRadius: 12, boxShadow: "0 6px 24px #0004" }}
-        />
+        <img src={logo} alt="PINV" className="hero-logo" />
       </div>
 
       <BrowserRouter>

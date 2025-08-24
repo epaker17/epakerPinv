@@ -127,3 +127,15 @@ button:focus-visible {
     box-sizing: border-box;
   }
 }
+/* === Hero logo (PINV) === */
+.hero-logo{
+  height:216px;          /* 300% poprzednich ~72px */
+  border-radius:14px;
+  box-shadow:0 8px 30px #0005;
+  object-fit:cover;
+}
+
+/* na bardzo małych ekranach lekko zmniejsz */
+@media (max-width: 480px){
+  .hero-logo{ height:160px; }
+}
