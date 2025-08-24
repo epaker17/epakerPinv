@@ -75,7 +75,7 @@ export default function PinvCharts() {
       </div>
 
       <div style={{ textAlign: "right", marginTop: 8, fontSize: 12, color: "#7d8a95" }}>
-        Źródło:&nbsp;
+        Source:&nbsp;
         <a
           href={IFRAME_SRC.replace("?embed=1", "")}
           target="_blank"
@@ -114,3 +114,4 @@ export default function PinvCharts() {
     </div>
   );
 }
+
