@@ -222,3 +222,71 @@ button:focus-visible {
     min-height: 320px;
   }
 }
+/* === Chart sizing (desktop & mobile) === */
+.chart-wrap { aspect-ratio: 16 / 9; }
+
+/* Mobile: NIE miniaturka, tylko wysoki wykres */
+@media (max-width: 600px) {
+  .chart-card { padding: 0; margin: 0; border: none; border-radius: 0; }
+  .chart-wrap {
+    aspect-ratio: auto;     /* wyłącz 16:9 */
+    height: 85vh;           /* fallback */
+    height: 85dvh;          /* lepsze na mobile */
+    min-height: 520px;      /* sensowna wysokość */
+    border-radius: 0;
+  }
+}
+@media (max-width: 380px) {
+  .chart-wrap {
+    height: 92vh;
+    height: 92dvh;
+    min-height: 560px;
+  }
+}
+
+/* === Fullscreen overlay === */
+.chart-fullscreen{
+  position: fixed;
+  inset: 0;
+  background: #0a1023;
+  z-index: 9999;
+}
+.chart-close-btn{
+  position: absolute;
+  top: 8px; right: 8px;
+  z-index: 10000;
+  border: 1px solid #243056;
+  background: #0e1a33;
+  color: #FFD700;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.chart-full-btn{
+  position: absolute;
+  top: 8px; right: 8px;
+  z-index: 5;
+  border: 1px solid #243056;
+  background: rgba(14,26,51,.85);
+  color: #FFD700;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(2px);
+}
+
+/* === Tint (z poprzedniej wersji) === */
+.chart-wrap--tint::after{
+  content:"";
+  position:absolute; inset:0;
+  pointer-events:none;
+  background: linear-gradient(180deg, rgba(20,33,61,.10), rgba(10,16,35,.25));
+  mix-blend-mode: multiply;
+  border-radius: inherit;
+}
+.dex-embed{
+  filter: hue-rotate(210deg) saturate(0.9) brightness(0.92) contrast(1.06);
+  transition: filter .2s ease;
+}

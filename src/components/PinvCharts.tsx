@@ -1,5 +1,7 @@
 ﻿// src/components/PinvCharts.tsx
-// Embed wykresu HEX/WPLS z DexScreener (PulseChain) + tint + lepszy mobile
+// HEX/WPLS (DexScreener) + duży mobilny widok + fullscreen
+
+import { useState, useEffect } from "react";
 
 const PAIR =
   (import.meta as any).env.VITE_HEX_PAIR ||
@@ -8,6 +10,15 @@ const PAIR =
 const IFRAME_SRC = `https://dexscreener.com/pulsechain/${PAIR}?embed=1&info=0&theme=dark`;
 
 export default function PinvCharts() {
+  const [full, setFull] = useState(false);
+
+  // zablokuj scroll strony w fullscreen
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = full ? "hidden" : prev || "";
+    return () => { document.body.style.overflow = prev || ""; };
+  }, [full]);
+
   return (
     <div
       className="chart-card tint-royal"
@@ -33,6 +44,16 @@ export default function PinvCharts() {
           boxShadow: "0 6px 24px #0004",
         }}
       >
+        {/* Przycisk fullscreen (widoczny też na mobile) */}
+        <button
+          className="chart-full-btn"
+          onClick={() => setFull(true)}
+          aria-label="Open chart full screen"
+          title="Fullscreen"
+        >
+          
+        </button>
+
         <iframe
           title="HEX / WPLS  DexScreener"
           src={IFRAME_SRC}
@@ -64,6 +85,32 @@ export default function PinvCharts() {
           DexScreener
         </a>
       </div>
+
+      {/* Overlay fullscreen */}
+      {full && (
+        <div className="chart-fullscreen">
+          <button
+            className="chart-close-btn"
+            onClick={() => setFull(false)}
+            aria-label="Close chart"
+            title="Close"
+          >
+            
+          </button>
+          <iframe
+            title="HEX / WPLS  DexScreener (Fullscreen)"
+            src={IFRAME_SRC}
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 48,
+              width: "100vw",
+              height: "calc(100dvh - 48px)",
+              border: 0,
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }
