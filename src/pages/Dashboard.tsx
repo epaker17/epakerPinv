@@ -9,6 +9,7 @@ import AddPulseChainButton from "../components/AddPulseChainButton";
 import PinvCharts from "../components/PinvCharts";
 import TreasuryCard from "../components/TreasuryCard";
 import BurnProgress from "../components/BurnProgress";
+import TokenActions from "../components/TokenActions";
 
 const SUPPORTED_CHAIN_ID = Number(import.meta.env.VITE_CHAIN_ID || 943);
 const PINV_ADDRESS = (import.meta.env.VITE_PINV_ADDRESS || "0xDddEB1b62F96e041333286D5F14470BDEbeAfBFD") as `0x${string}`;
