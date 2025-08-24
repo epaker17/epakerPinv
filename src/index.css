@@ -139,3 +139,20 @@ button:focus-visible {
 @media (max-width: 480px){
   .hero-logo{ height:160px; }
 }
+/* === OVERRIDE: bigger hero logo (x2 current) === */
+.hero-logo{
+  height:432px;          /* było 216px */
+  width:auto;
+  max-width:90vw;        /* nie wychodź poza ekran */
+  border-radius:14px;
+  box-shadow:0 8px 30px #0005;
+  object-fit:cover;
+}
+
+/* mobile też większe */
+@media (max-width: 480px){
+  .hero-logo{
+    height:320px;        /* było 160px */
+    max-width:90vw;
+  }
+}
