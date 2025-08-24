@@ -3,7 +3,7 @@
 const CHAIN_ID = Number(import.meta.env.VITE_CHAIN_ID || 943);
 const ADDR = import.meta.env.VITE_PINV_ADDRESS || "0xDddEB1b62F96e041333286D5F14470BDEbeAfBFD";
 
-const buttonStyle: React.CSSProperties = {
+const buttonStyle = {
   background: "#229ED9",
   color: "#fff",
   border: "none",
@@ -25,10 +25,7 @@ const buttonStyle: React.CSSProperties = {
 
 export default function TokenActions() {
   const [copied, setCopied] = useState(false);
-  const explorerBase =
-    CHAIN_ID === 369
-      ? "https://scan.pulsechain.com"
-      : "https://scan.v4.testnet.pulsechain.com";
+  const explorerBase = CHAIN_ID === 369 ? "https://scan.pulsechain.com" : "https://scan.v4.testnet.pulsechain.com";
   const explorerUrl = `${explorerBase}/address/${ADDR}`;
 
   const copyAddr = async () => {
@@ -36,11 +33,13 @@ export default function TokenActions() {
       await navigator.clipboard.writeText(ADDR);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
-    } catch {}
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const addToWallet = async () => {
-    const eth = (window as any).ethereum;
+    const eth = window.ethereum;
     if (!eth) {
       alert("Please install MetaMask or a compatible wallet.");
       return;
@@ -50,38 +49,19 @@ export default function TokenActions() {
         method: "wallet_watchAsset",
         params: {
           type: "ERC20",
-          options: {
-            address: ADDR,
-            symbol: "PINV",
-            decimals: 18,
-          },
+          options: { address: ADDR, symbol: "PINV", decimals: 18 },
         },
       });
-    } catch (e: any) {
+    } catch (e) {
       console.error(e);
-      alert(e?.message || String(e));
+      alert(e && e.message ? e.message : String(e));
     }
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: 12,
-        justifyContent: "center",
-        flexWrap: "wrap",
-        marginTop: 16,
-      }}
-    >
-      <button onClick={copyAddr} style={buttonStyle}>
-        {copied ? "Copied " : "Copy"}
-      </button>
-
-      <button onClick={addToWallet} style={buttonStyle}>
-        Add to wallet
-      </button>
-
-      {/* Anchor owija button, więc rozmiar jest identyczny */}
+    <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginTop: 16 }}>
+      <button onClick={copyAddr} style={buttonStyle}>{copied ? "Copied " : "Copy"}</button>
+      <button onClick={addToWallet} style={buttonStyle}>Add to wallet</button>
       <a href={explorerUrl} target="_blank" rel="noreferrer" style={{ textDecoration: "none" }}>
         <button style={buttonStyle}>Explorer</button>
       </a>
