@@ -6,7 +6,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import abi from "../abi/pinv-abi.json";
 import AddPulseChainButton from "../components/AddPulseChainButton";
 import PinvCharts from "../components/PinvCharts";
-import TokenActions from "../components/TokenActions";
+import WelcomeBanner from "../components/WelcomeBanner";import TokenActions from "../components/TokenActions";
 import BuyButtons from "../components/BuyButtons";
 
 const SUPPORTED_CHAIN_ID = Number(import.meta.env.VITE_CHAIN_ID || 943);
@@ -91,7 +91,7 @@ export default function Dashboard() {
       </div>
 
       {/* Kafelek informacji o użytkowniku */}
-      <div className="card" style={{ marginTop: 16, textAlign: "center" }}>
+      <WelcomeBanner /> style={{ marginTop: 16, textAlign: "center" }}>
         <h2 style={{ color: "#61a5fb", marginTop: 0 }}>PINV Dashboard</h2>
         <div style={{ margin: "16px 0" }}>
           {isConnected ? (
@@ -155,3 +155,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
