@@ -33,9 +33,7 @@ export default function TokenActions() {
       await navigator.clipboard.writeText(ADDR);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) { console.error(e); }
   };
 
   const addToWallet = async () => {
@@ -47,10 +45,7 @@ export default function TokenActions() {
     try {
       await eth.request({
         method: "wallet_watchAsset",
-        params: {
-          type: "ERC20",
-          options: { address: ADDR, symbol: "PINV", decimals: 18 },
-        },
+        params: { type: "ERC20", options: { address: ADDR, symbol: "PINV", decimals: 18 } },
       });
     } catch (e) {
       console.error(e);
