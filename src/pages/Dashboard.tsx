@@ -7,8 +7,6 @@ import abi from "../abi/pinv-abi.json";
 import BurnedStats from "../components/BurnedStats";
 import AddPulseChainButton from "../components/AddPulseChainButton";
 import PinvCharts from "../components/PinvCharts";
-import WelcomeBanner from "../components/WelcomeBanner";
-import TokenActions from "../components/TokenActions";
 
 const SUPPORTED_CHAIN_ID = Number(import.meta.env.VITE_CHAIN_ID || 943);
 const PINV_ADDRESS = (import.meta.env.VITE_PINV_ADDRESS || "0xDddEB1b62F96e041333286D5F14470BDEbeAfBFD") as `0x${string}`;
@@ -69,7 +67,12 @@ export default function Dashboard() {
   let pinvBalance = "0";
   try {
     if (typeof decimals === "number" && typeof pinvRaw !== "undefined" && pinvRaw !== null) {
-      const raw = typeof pinvRaw === "bigint" ? pinvRaw : typeof pinvRaw === "string" ? BigInt(pinvRaw) : BigInt(0);
+      const raw =
+        typeof pinvRaw === "bigint"
+          ? pinvRaw
+          : typeof pinvRaw === "string"
+          ? BigInt(pinvRaw)
+          : BigInt(0);
       const num = Number(raw) / 10 ** Number(decimals);
       pinvBalance = num.toLocaleString("pl-PL", { maximumFractionDigits: 4 });
     }
@@ -81,10 +84,8 @@ export default function Dashboard() {
         <ConnectButton showBalance={false} chainStatus="icon" />
       </div>
 
-      <WelcomeBanner />
-
-      <div className="card" style={{ marginTop: 16, textAlign: "center" }}>
-        <h2 style={{ color: "#61a5fb" }}>PINV Dashboard</h2>
+      <div className="card" style={{ marginTop: 32, textAlign: "center" }}>
+        <h2 style={{ color: "#FFD700" }}>PINV Dashboard</h2>
         <div style={{ margin: "24px 0" }}>
           {isConnected ? (
             <>
@@ -100,14 +101,14 @@ export default function Dashboard() {
                 <b>{typeof pinvSymbol === "string" ? pinvSymbol : "PINV"}:</b>
                 {pinvLoading ? " ..." : " " + pinvBalance}
               </div>
-              <div style={{ display: "flex", justifyContent: "center", marginTop: 20, gap: 12, flexWrap: "wrap" }}>
-                <button onClick={() => disconnect()} style={buttonStyle}>Disconnect wallet</button>
-                <AddPulseChainButton />
+              <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
+                <button onClick={() => disconnect()} style={buttonStyle}>
+                  Disconnect wallet
+                </button>
               </div>
-              <TokenActions />
             </>
           ) : (
-            <div style={{ color: "#229ED9" }}>
+            <div style={{ color: "#FFD700" }}>
               Connect your wallet with RainbowKit to see balance!
             </div>
           )}
@@ -115,7 +116,6 @@ export default function Dashboard() {
       </div>
 
       <BurnedStats />
-
       <PinvCharts />
 
       <div
@@ -123,18 +123,23 @@ export default function Dashboard() {
         style={{ display: "flex", gap: 12, justifyContent: "center", marginTop: 32, flexWrap: "wrap" }}
       >
         <button onClick={() => window.open("https://x.com/PinvToken", "_blank")} style={buttonStyle}>
-          <FaXTwitter size={18} /> X / Twitter
+          <FaXTwitter size={18} />
+          X / Twitter
         </button>
         <button onClick={() => window.open("https://t.me/PinvToken", "_blank")} style={buttonStyle}>
-          <FaTelegramPlane size={18} /> Telegram
+          <FaTelegramPlane size={18} />
+          Telegram
         </button>
         <Link to="/whitepaper" style={{ textDecoration: "none" }}>
-          <button style={buttonStyle}> Whitepaper</button>
+          <button style={buttonStyle}>📄 Whitepaper</button>
         </Link>
+        <AddPulseChainButton />
       </div>
 
-      <div style={{ color: "#375486", textAlign: "center", marginTop: 20, fontSize: 13, fontWeight: 500 }}>
-        PINV 2025  All rights reserved.
+      <div
+        style={{ color: "#375486", textAlign: "center", marginTop: 20, fontSize: 13, fontWeight: 500 }}
+      >
+        PINV 2025 © All rights reserved.
       </div>
     </div>
   );
