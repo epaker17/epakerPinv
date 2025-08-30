@@ -1,11 +1,16 @@
-﻿// Embed wykresu HEX/WPLS z DexScreener (PulseChain)
+﻿import React from "react";
+
+// HEX/WPLS pair on PulseChain / PulseX (DexScreener)
+const PAIR_ID = "0x9b82fee4e54011fe7e5352317d6c7fdc5d2c1ace";
+const EMBED_URL = `https://dexscreener.com/pulsechain/${PAIR_ID}?embed=1&theme=dark`;
+
 export default function PinvCharts() {
   return (
     <div
       style={{
-        maxWidth: 900,
+        maxWidth: 1000,
         margin: "24px auto 0",
-        padding: "24px",
+        padding: 16,
         border: "1px solid #243056",
         borderRadius: 12,
         background: "rgba(20,33,61,0.35)",
@@ -13,32 +18,45 @@ export default function PinvCharts() {
     >
       <h3 style={{ marginTop: 0, color: "#FFD700" }}>Charts</h3>
 
-      <div className="chart-embed" style={{
-        position: "relative",
-        width: "100%",
-        paddingBottom: "65%",
-        overflow: "hidden",
-        borderRadius: 12,
-        border: "1px solid #243056",
-        background: "rgba(10,16,35,0.4)"
-      }}>
+      <div
+        style={{
+          position: "relative",
+          borderRadius: 12,
+          overflow: "hidden",
+          background: "#0b1226",
+          border: "1px solid #243056",
+        }}
+      >
         <iframe
-          src="https://dexscreener.com/pulsechain/0x75ec5cd01062502b6a1d1117bfa011c048f905d1?embed=1&theme=dark&trades=0&info=0"
-          title="HEX / WPLS  DexScreener"
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
-          allow="clipboard-write; fullscreen"
+          title="HEX/WPLS  DexScreener"
+          src={EMBED_URL}
+          className="chart-frame"
+          allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         />
       </div>
 
-      <div style={{ marginTop: 8, fontSize: 12, opacity: 0.95, color: "#FFD700" }}>
+      <div style={{ marginTop: 8, fontSize: 12, color: "#FFD700" }}>
         Source: DexScreener {" "}
         <a
-          href="https://dexscreener.com/pulsechain/0x75ec5cd01062502b6a1d1117bfa011c048f905d1"
+          href={`https://dexscreener.com/pulsechain/${PAIR_ID}`}
           target="_blank"
           rel="noreferrer"
-          style={{ color: "#FFD700", textDecoration: "underline" }}
+          style={{ textDecoration: "none" }}
         >
-          Open pair
+          <button
+            style={{
+              background: "#229ED9",
+              color: "#fff",
+              border: "none",
+              borderRadius: 8,
+              padding: "6px 12px",
+              fontWeight: 600,
+              cursor: "pointer",
+              boxShadow: "0 2px 10px #0002",
+            }}
+          >
+            Open pair
+          </button>
         </a>
       </div>
     </div>
