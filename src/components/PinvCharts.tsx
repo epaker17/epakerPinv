@@ -28,15 +28,25 @@ export default function PinvCharts() {
         }}
       >
         <iframe
-          title="HEX/WPLS  DexScreener"
+          title="HEX/WPLS — DexScreener"
           src={EMBED_URL}
           className="chart-frame"
           allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         />
       </div>
 
-      <div style={{ marginTop: 8, fontSize: 12, color: "#FFD700" }}>
-        Source: DexScreener {" "}
+      <div
+        style={{
+          marginTop: 8,
+          fontSize: 12,
+          color: "#FFD700",
+          display: "flex",
+          gap: 10,
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        <span>Powered by DexScreener</span>
         <a
           href={`https://dexscreener.com/pulsechain/${PAIR_ID}`}
           target="_blank"
@@ -55,7 +65,7 @@ export default function PinvCharts() {
               boxShadow: "0 2px 10px #0002",
             }}
           >
-            Open pair
+            Open Pair
           </button>
         </a>
       </div>
