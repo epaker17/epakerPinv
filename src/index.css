@@ -295,3 +295,20 @@ button:focus-visible {
 @media (max-width: 600px) {
   .chart-frame { min-height: 640px; }
 }
+/* === PINV custom background (public/bg-dashboard.jpg) === */
+body {
+  background-image:
+    radial-gradient(1200px 800px at 50% 20%, rgba(10,16,35,.55), rgba(10,16,35,.85)),
+    url("/bg-dashboard.jpg");
+  background-size: cover, cover;
+  background-position: center, 100% 100%;
+  background-repeat: no-repeat, no-repeat;
+  background-attachment: fixed, fixed;
+}
+@media (max-width: 640px) {
+  body {
+    /* nieco większe zbliżenie i lekkie przesunięcie, by złoty narożnik był widoczny na mobile */
+    background-size: 240% auto, 240% auto;
+    background-position: 50% 25%, 60% 100%;
+  }
+}
