@@ -1,4 +1,4 @@
-export default function Whitepaper() {
+﻿export default function Whitepaper() {
   return (
     <div
       style={{
@@ -27,135 +27,147 @@ export default function Whitepaper() {
             margin-top: 16px;
             overflow-x: auto;
           }
+          code { color: #ffe066; }
         `}
       </style>
-      <div style={{ maxWidth: 850, margin: "0 auto" }}>
-        <h1>PulseInvest (PINV) — Whitepaper</h1>
 
-        <h2>Introduction</h2>
+      <div style={{ maxWidth: 900, margin: "0 auto" }}>
+        <h1>PulseInvest (PINV) — Whitepaper (2025 Update)</h1>
+
+        <h2>Abstract</h2>
         <p>
-          <b>PulseInvest (PINV)</b> is a modern ERC20 token deployed on the PulseChain network, created by an honest founder with a passion for developing the crypto ecosystem and supporting open, community-driven projects.
-        </p>
-        <p>
-          PulseInvest is designed for simplicity, transparency, and sustainable growth. The project aims to engage users, involve the community in key decisions, and foster collaboration for future Web3 innovations.
+          <b>PulseInvest (PINV)</b> is a simple and transparent ERC-20 token on
+          PulseChain. Every transfer applies a fixed <b>4% fee</b>: <b>2%</b> is
+          <b> burned</b> (deflationary) and <b>2%</b> is routed to the
+          <b> treasury</b> to fund growth of the ecosystem. PINV is built with a
+          community-first mindset and is intended as an honest, easy-to-reason-about
+          building block for DeFi.
         </p>
 
-        <h2>Project Philosophy</h2>
+        <h2>Vision & Values</h2>
         <ul>
           <li>
-            <b>Honesty & Trust:</b> PulseInvest is developed by a reputable developer, and all code is available for the community to review. The project's growth will always consider the interests of users.
+            <b>Built from passion:</b> the project is created out of love for DeFi and a belief
+            in transparency and fair play in crypto.
           </li>
           <li>
-            <b>Sustainable Growth:</b> The long-term goal is to build a strong ecosystem with planned extensions, partnerships, and the launch of related projects and tools.
+            <b>Simplicity & honesty:</b> no hidden functions, clear token economics,
+            readable code.
           </li>
           <li>
-            <b>Community-Centric:</b> Major changes and updates will be consulted with the community. PulseInvest values open communication and collective decision-making.
-          </li>
-          <li>
-            <b>Transparency:</b> All key steps, updates, and economic mechanisms are open-source and well-documented.
+            <b>Community-first:</b> new features and potential companion projects will be
+            <b> consulted with the community</b> before rolling out.
           </li>
         </ul>
 
-        <h2>Tokenomics</h2>
+        <h2>Token Parameters</h2>
         <ul>
-          <li><b>Token name:</b> PulseInvest</li>
+          <li><b>Name:</b> Pinv</li>
           <li><b>Symbol:</b> PINV</li>
-          <li><b>Initial supply:</b> 21,000,000 PINV (minted at contract deployment)</li>
-          <li><b>Treasury address:</b> A dedicated, immutable treasury address receives a portion of every transaction.</li>
-          <li><b>Owner:</b> Managed by the deployer (Ownable), with no hidden functions or unfair advantages.</li>
+          <li><b>Standard:</b> ERC-20 (OpenZeppelin)</li>
+          <li><b>Decimals:</b> 18</li>
+          <li><b>Initial supply:</b> 21,000,000 PINV (minted at deployment)</li>
+          <li><b>Treasury:</b> immutable address set in the constructor (receives 2% of every transfer)</li>
+          <li><b>Ownership:</b> <code>Ownable</code> — used only for essentials; no obscure privileges</li>
         </ul>
 
-        <h2>Key Features</h2>
-        <h3>1. Simple, Deflationary Fee Mechanism</h3>
+        <h2>Transfer Fee (4% Deflationary)</h2>
         <ul>
-          <li>Every PINV token transfer is subject to a <b>fixed 4% fee</b>:</li>
-          <li>2% is burned (permanently removed from circulation).</li>
-          <li>2% goes directly to the treasury.</li>
+          <li><b>2%</b> of the amount is <b>burned</b> (permanently removed from supply).</li>
+          <li><b>2%</b> goes to the <b>treasury</b>.</li>
+          <li>The receiver gets <b>96%</b> of the sent amount.</li>
         </ul>
-        <p>Example: send 100 PINV → 2 burn, 2 treasury, recipient gets 96.</p>
+        <p>
+          Example: send 100 PINV → <b>2</b> burn, <b>2</b> treasury, receiver gets <b>96</b>.
+        </p>
 
-        <h3>2. Security & Fair Architecture</h3>
+        <h2>Treasury</h2>
+        <p>
+          Treasury funds are intended to support ecosystem growth: liquidity, integrations,
+          tooling, audits, educational initiatives and community rewards. Allocation principles
+          and larger decisions will be <b>discussed with the community</b>.
+        </p>
+
+        <h2>Security & Architecture</h2>
         <ul>
-          <li>ERC20 Standard, Ownable, immutable treasury, clear allowance errors.</li>
+          <li>Uses well-audited <b>OpenZeppelin</b> libraries.</li>
+          <li>No minting after deployment; <b>no blacklist</b>, <b>no pausing</b>.</li>
+          <li>
+            Custom error <code>AllowanceExceeded</code> improves clarity around
+            <code> transferFrom</code> allowance checks.
+          </li>
+          <li>
+            Note: some third-party contracts/bridges may not support <i>fee-on-transfer</i> tokens.
+          </li>
         </ul>
 
-        <h2>Contract Summary</h2>
+        <h2>Contract (essentials)</h2>
         <pre>{`// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract PulseInvest is ERC20, Ownable {
+/// @title Pinv with a fixed 4% fee (2% burn + 2% treasury)
+contract Pinv is ERC20, Ownable {
+    error AllowanceExceeded(address owner, address spender, uint256 requested, uint256 available);
+
     address public immutable treasury;
 
-    constructor(address _treasury)
-        ERC20("PulseInvest", "PINV")
-        Ownable(msg.sender)
-    {
+    constructor(address _treasury) ERC20("Pinv", "PINV") Ownable(msg.sender) {
         require(_treasury != address(0), "Treasury cannot be zero address");
         treasury = _treasury;
         _mint(msg.sender, 21_000_000 * 10 ** decimals());
     }
 
+    /// Calculates 2% burn and 2% treasury (total 4%)
     function _calculateFees(uint256 amount) internal pure returns (uint256 burn, uint256 treasuryAmount) {
         burn = (amount * 2) / 100;
         treasuryAmount = (amount * 2) / 100;
     }
 
-    function transfer(address to, uint256 amount)
-        public
-        override
-        returns (bool)
-    {
+    /// transfer with 4% fee (2% burn + 2% treasury)
+    function transfer(address to, uint256 amount) public override returns (bool) {
         require(balanceOf(_msgSender()) >= amount, "ERC20: transfer amount exceeds balance");
-
         (uint256 burnAmt, uint256 treasuryAmt) = _calculateFees(amount);
         uint256 sendAmt = amount - burnAmt - treasuryAmt;
-
         _burn(_msgSender(), burnAmt);
         _transfer(_msgSender(), treasury, treasuryAmt);
         return super.transfer(to, sendAmt);
     }
 
-    function transferFrom(
-        address from,
-        address to,
-        uint256 amount
-    )
-        public
-        override
-        returns (bool)
-    {
+    /// transferFrom with 4% fee (2% burn + 2% treasury) + custom error
+    function transferFrom(address from, address to, uint256 amount) public override returns (bool) {
         uint256 current = allowance(from, _msgSender());
-        require(current >= amount, "Allowance exceeded");
+        if (current < amount) revert AllowanceExceeded(from, _msgSender(), amount, current);
         _approve(from, _msgSender(), current - amount);
-
         require(balanceOf(from) >= amount, "ERC20: transfer amount exceeds balance");
-
         (uint256 burnAmt, uint256 treasuryAmt) = _calculateFees(amount);
         uint256 sendAmt = amount - burnAmt - treasuryAmt;
-
         _burn(from, burnAmt);
         _transfer(from, treasury, treasuryAmt);
         super._transfer(from, to, sendAmt);
         return true;
     }
-}
-`}</pre>
+}`}</pre>
 
-        <h2>Roadmap & Vision</h2>
+        <h2>Roadmap & Community Governance</h2>
         <ul>
-          <li>Continuous development; community collaboration; ecosystem expansion; open to partnerships.</li>
+          <li>DeFi integrations and tooling on PulseChain (analytics, alerts, UI).</li>
+          <li>Companion projects that cooperate with PINV and other honest tokens.</li>
+          <li>Community programs: rewards, contests, education.</li>
+          <li>Major changes announced and discussed with the community first.</li>
         </ul>
 
-        <h2>Disclaimer</h2>
-        <p>
-          PulseInvest is experimental. DYOR. Code is open-source; major changes will be consulted with the community.
-        </p>
+        <h2>Risks & Disclaimers</h2>
+        <ul>
+          <li>Crypto assets are high-risk — <b>DYOR</b> (Do Your Own Research).</li>
+          <li>Fee-on-transfer behavior may affect some third-party contracts/bridges/DEXes.</li>
+          <li>No profit promises. The project is built transparently and community-first.</li>
+        </ul>
 
         <div style={{ textAlign: "center", marginTop: 40, fontWeight: 700 }}>
-          Thank you for joining PulseInvest!
+          Thank you for building PulseInvest with us. 💙
         </div>
       </div>
     </div>
