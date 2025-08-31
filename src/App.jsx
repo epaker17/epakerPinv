@@ -10,7 +10,7 @@ export default function App() {
       style={{
         minHeight: "100vh",
         minWidth: "100vw",
-        background: "linear-gradient(120deg,#14213d 0%,#1a2042 90%)",
+        background: "transparent",
       }}
     >
       {/* Prosty nagłówek z dużym logo */}
@@ -28,3 +28,4 @@ export default function App() {
     </div>
   );
 }
+

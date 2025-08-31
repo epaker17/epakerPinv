@@ -1,5 +1,5 @@
 ﻿html, body, #root {
-  background: #14213d !important;
+  background: transparent !important;
   color: #FFD700 !important;
   min-width: 100vw;
   min-height: 100vh;
@@ -29,3 +29,4 @@
 
 .card { padding: 2em; }
 .read-the-docs { color: #f5d106; }
+

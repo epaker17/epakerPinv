@@ -331,3 +331,24 @@ html, body, #root {
     background-position: 50% 30%, 66% 100%;
   }
 }
+
+/* === PINV BG START === */
+body {
+  /* overlay + obraz (z katalogu /public) */
+  background-image:
+    radial-gradient(1200px 800px at 50% 20%, rgba(10,16,35,.55), rgba(10,16,35,.88)),
+    url("/bg-dashboard.jpg");
+  background-size: cover, cover;
+  background-position: center, 100% 100%;
+  background-repeat: no-repeat, no-repeat;
+  background-attachment: fixed, fixed;
+}
+
+/* mobile tunning, żeby złote rogi były widoczne */
+@media (max-width: 640px) {
+  body {
+    background-size: 240% auto, 240% auto;
+    background-position: 50% 25%, 60% 100%;
+  }
+}
+/* === PINV BG END === */
